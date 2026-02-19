@@ -1,9 +1,37 @@
 --South Africa Criminal Database - 30 SQL Questions (Questions Only)
+
+---CHECKING  ALL THE DATA IN THE TABLE
+
+SELECT* FROM SA_criminal_database;
+
+
 --1. Display all records from the CriminalCases table.
+
+SELECT* FROM SA_criminal_database;
+
 --2. Count the total number of cases in the table.
+
+SELECT COUNT(*) AS TOTAL_NUMBER_OF_CASES
+FROM SA_criminal_database;
+
 --3. Count the number of cases in each province.
+
+SELECT PROVINCE, COUNT(CaseNumber) AS TOTAL_CASE_NUMBERS
+FROM SA_criminal_database
+GROUP BY PROVINCE;
+
 --4. Retrieve all cases where the crime type is Fraud.
+
+SELECT * 
+FROM SA_criminal_database
+WHERE CrimeType ='Fraud';
+
 --5. Count the number of cases for each crime type.
+
+SELECT CrimeType,COUNT(RecordID) AS NUMBER_OF_CASES
+FROM SA_criminal_database
+GROUP BY CrimeType;
+
 --6. Display all cases classified as High or Critical risk.
 --7. Calculate the average Financial Score of all suspects.
 --8. Find the highest Estimated Fraud Amount recorded.
