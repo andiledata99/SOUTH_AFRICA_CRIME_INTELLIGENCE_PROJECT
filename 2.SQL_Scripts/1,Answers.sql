@@ -33,13 +33,62 @@ FROM SA_criminal_database
 GROUP BY CrimeType;
 
 --6. Display all cases classified as High or Critical risk.
+
+SELECT *
+FROM SA_criminal_database
+WHERE RiskLevel = 'High'OR RiskLevel = 'Critical';
+
+
 --7. Calculate the average Financial Score of all suspects.
+
+SELECT AVG(Financialscore) AS AVERAGE_FINANCIAL_SCORE
+FROM SA_criminal_database
+WHERE CaseStatus = 'Under Investigation' OR  CaseStatus = 'Court Pending' OR  CaseStatus ='Convicted' OR  CaseStatus ='Open' OR CaseStatus ='Closed';
+
+
 --8. Find the highest Estimated Fraud Amount recorded.
+
+SELECT MAX(EstimatedFraudAmount_ZAR) AS HIGHEST_ESTIMATED_FRAUD_AMOUNT
+FROM SA_criminal_database;
+
+
 --9. Retrieve the top 10 cases with the highest Estimated Fraud Amount.
+
+SELECT TOP 10 *
+FROM SA_criminal_database
+ORDER BY EstimatedFraudAmount_ZAR DESC;
+
+
 --10. Display all cases where the suspect was arrested.
+
+SELECT *
+FROM SA_criminal_database
+WHERE CaseStatus = 'Convicted';
+
+
+
 --11. Count how many suspects were arrested versus not arrested.
+
+SELECT CaseStatus, COUNT(*) AS ARRESTED
+FROM SA_criminal_database
+WHERE CaseStatus = 'Convicted'
+GROUP BY CaseStatus
+
+SELECT CaseStatus,COUNT(*) AS NOT_ARRESTED
+FROM SA_criminal_database
+WHERE CaseStatus = 'Court Pending' OR  CaseStatus = 'Under Investigation' OR CaseStatus ='Open' OR CaseStatus ='Closed'
+GROUP BY CaseStatus;
+
+
 --12. Count the number of cases associated with each bank.
+
+SELECT BankInvolved ,COUNT(*) AS NUMBER_OF_CASES
+FROM SA_criminal_database
+GROUP BY BankInvolved;
+
 --13. Calculate the total Estimated Fraud Amount per province.
+
+
 --14. Retrieve all suspects older than 50 years.
 --15. Calculate the average age of suspects per province.
 --16. Display all cases recorded from 2020 onwards.
