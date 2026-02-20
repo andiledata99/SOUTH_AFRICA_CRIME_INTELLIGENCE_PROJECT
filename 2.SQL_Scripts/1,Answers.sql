@@ -104,17 +104,98 @@ FROM SA_criminal_database
 GROUP BY Province;
 
 --16. Display all cases recorded from 2020 onwards.
+
+SELECT *
+FROM SA_criminal_database
+WHERE CrimeDate>= '2020-01-01';
+
 --17. Count how many cases resulted in a Convicted status.
+
+SELECT COUNT(*) AS NUMBER_OF_CASES_WITH_CONVICTED_STATUS
+FROM SA_criminal_database
+WHERE CaseStatus = 'Convicted';
+
 --18. Retrieve all suspects with more than three previous offenses.
+
+SELECT *
+FROM SA_criminal_database
+WHERE PreviousOffenses>3;
+
 --19. Show the distribution of cases by Risk Level.
+
+SELECT RiskLevel,COUNT(*) AS CASE_COUNT
+FROM SA_criminal_database 
+GROUP BY RiskLevel;
+
+
 --20. Calculate the total Estimated Fraud Amount across all cases.
+
+
+SELECT AVG(CAST(EstimatedFraudAmount_ZAR AS bigint)) AS  AVERAGE_ESTIMATED_FRAUD_AMOUNT
+FROM SA_criminal_database;
+
+
 --21. Identify the province with the highest number of cases.
+
+SELECT TOP 1 Province,COUNT(*)  AS HIGHEST_NUMBER_OF_CASES
+FROM SA_criminal_database
+GROUP BY Province
+ORDER BY HIGHEST_NUMBER_OF_CASES DESC;
+
 --22. Retrieve the youngest suspect in the dataset.
+
+SELECT MIN(Age)AS YOUNGEST_SUSPECT
+FROM SA_criminal_database;
+
 --23. Retrieve the oldest suspect in the dataset.
+
+SELECT MAX(Age) AS OLDEST_SUSPECT
+FROM SA_criminal_database;
+
 --24. Count the number of cases handled by each investigating officer.
+
+SELECT InvestigatingOfficer, COUNT(*) AS CASES_HANDLED
+FROM SA_criminal_database
+GROUP BY InvestigatingOfficer;
+
 --25. Calculate the average Estimated Fraud Amount per crime type.
+
+SELECT CrimeType, AVG(EstimatedFraudAmount_ZAR) AS AVERAGE_ESTIMATED_FRAUD_AMOUNT
+FROM SA_criminal_database
+GROUP BY CrimeType;
+
 --26. Display all cases occurring in Gauteng province.
+
+SELECT *
+FROM SA_criminal_database
+WHERE Province = 'Gauteng';
+
 --27. Retrieve all Fraud cases classified as High risk.
+
+SELECT *
+FROM SA_criminal_database
+WHERE RiskLevel = 'high';
+
 --28. Count the number of cases per year based on CrimeDate.
+
+SELECT CrimeDate, COUNT(*) AS NUMBER_OF_CASES
+FROM SA_criminal_database
+GROUP BY CrimeDate;
+
 --29. Display all suspects with a Financial Score below 500.
+
+SELECT *
+FROM SA_criminal_database
+WHERE FinancialScore < 500;
+
+
 --30. Identify the most common Crime Type in the dataset.
+
+SELECT TOP 1 CrimeType
+FROM SA_criminal_database;
+
+
+SELECT CrimeType,count(*) AS COMMON_CRIME_TYPE
+FROM SA_criminal_database
+GROUP BY CrimeType 
+ORDER BY  COMMON_CRIME_TYPE DESC;
