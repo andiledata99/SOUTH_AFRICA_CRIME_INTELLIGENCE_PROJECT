@@ -42,8 +42,7 @@ WHERE RiskLevel = 'High'OR RiskLevel = 'Critical';
 --7. Calculate the average Financial Score of all suspects.
 
 SELECT AVG(Financialscore) AS AVERAGE_FINANCIAL_SCORE
-FROM SA_criminal_database
-WHERE CaseStatus = 'Under Investigation' OR  CaseStatus = 'Court Pending' OR  CaseStatus ='Convicted' OR  CaseStatus ='Open' OR CaseStatus ='Closed';
+FROM SA_criminal_database;
 
 
 --8. Find the highest Estimated Fraud Amount recorded.
@@ -88,9 +87,22 @@ GROUP BY BankInvolved;
 
 --13. Calculate the total Estimated Fraud Amount per province.
 
+SELECT Province, Sum( EstimatedFraudAmount_ZAR) AS TOTAL_ESTIMATED_FRAUD_AMOUNT 
+FROM SA_criminal_database
+GROUP BY Province;
 
 --14. Retrieve all suspects older than 50 years.
+
+SELECT *
+FROM SA_criminal_database
+WHERE Age>50;
+
 --15. Calculate the average age of suspects per province.
+
+SELECT Province,AVG(Age) AS AVERAGE_AGE 
+FROM SA_criminal_database
+GROUP BY Province;
+
 --16. Display all cases recorded from 2020 onwards.
 --17. Count how many cases resulted in a Convicted status.
 --18. Retrieve all suspects with more than three previous offenses.
