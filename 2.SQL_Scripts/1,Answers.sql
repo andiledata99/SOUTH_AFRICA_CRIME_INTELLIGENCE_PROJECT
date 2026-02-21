@@ -7,11 +7,11 @@ SELECT* FROM SA_criminal_database;
 
 --1. Display all records from the CriminalCases table.
 
-SELECT* FROM SA_criminal_database;
+SELECT * FROM SA_criminal_database;
 
 --2. Count the total number of cases in the table.
 
-SELECT COUNT(*) AS TOTAL_NUMBER_OF_CASES
+SELECT COUNT(CaseNumber) AS TOTAL_NUMBER_OF_CASES
 FROM SA_criminal_database;
 
 --3. Count the number of cases in each province.
@@ -62,21 +62,15 @@ ORDER BY EstimatedFraudAmount_ZAR DESC;
 
 SELECT *
 FROM SA_criminal_database
-WHERE CaseStatus = 'Convicted';
-
+WHERE Arrested=1;
+ 
 
 
 --11. Count how many suspects were arrested versus not arrested.
 
-SELECT CaseStatus, COUNT(*) AS ARRESTED
+SELECT Arrested, COUNT(*) AS SUSPECTS_ARRESTED
 FROM SA_criminal_database
-WHERE CaseStatus = 'Convicted'
-GROUP BY CaseStatus
-
-SELECT CaseStatus,COUNT(*) AS NOT_ARRESTED
-FROM SA_criminal_database
-WHERE CaseStatus = 'Court Pending' OR  CaseStatus = 'Under Investigation' OR CaseStatus ='Open' OR CaseStatus ='Closed'
-GROUP BY CaseStatus;
+GROUP BY Arrested;
 
 
 --12. Count the number of cases associated with each bank.
