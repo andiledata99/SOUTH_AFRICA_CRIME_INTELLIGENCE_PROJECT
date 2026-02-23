@@ -125,7 +125,7 @@ GROUP BY RiskLevel;
 --20. Calculate the total Estimated Fraud Amount across all cases.
 
 
-SELECT AVG(CAST(EstimatedFraudAmount_ZAR AS bigint)) AS  AVERAGE_ESTIMATED_FRAUD_AMOUNT
+SELECT SUM(CAST(EstimatedFraudAmount_ZAR AS bigint)) AS  AVERAGE_ESTIMATED_FRAUD_AMOUNT
 FROM SA_criminal_database;
 
 
@@ -168,13 +168,13 @@ WHERE Province = 'Gauteng';
 
 SELECT *
 FROM SA_criminal_database
-WHERE RiskLevel = 'high';
+WHERE RiskLevel = 'high' AND CrimeType= 'fraud';
 
 --28. Count the number of cases per year based on CrimeDate.
 
-SELECT CrimeDate, COUNT(*) AS NUMBER_OF_CASES
+SELECT YEAR(CrimeDate), COUNT(*) AS NUMBER_OF_CASES
 FROM SA_criminal_database
-GROUP BY CrimeDate;
+GROUP BY YEAR(CrimeDate);
 
 --29. Display all suspects with a Financial Score below 500.
 
@@ -185,11 +185,9 @@ WHERE FinancialScore < 500;
 
 --30. Identify the most common Crime Type in the dataset.
 
-SELECT TOP 1 CrimeType
-FROM SA_criminal_database;
 
 
-SELECT CrimeType,count(*) AS COMMON_CRIME_TYPE
+SELECT TOP 1 CrimeType,count(*) AS COMMON_CRIME_TYPE
 FROM SA_criminal_database
 GROUP BY CrimeType 
 ORDER BY  COMMON_CRIME_TYPE DESC;
